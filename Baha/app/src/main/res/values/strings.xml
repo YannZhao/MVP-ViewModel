@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Baha</string>
+
+    <string name="confirm_text">确定</string>
+    <string name="cancel_text">取消</string>
+    <string name="submit_text">提交</string>
+
+    <!--MvpVm Demo-->
+    <string name="mvpvm_demo_label">MvpVm</string>
+</resources>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class="DialogDataBinding">
+
+        <import type="android.view.View" />
+
+        <variable
+            name="dialogModel"
+            type="com.baha.common.dialog.viewmodel.CustomDialogModel" />
+
+        <variable
+            name="onConfirmClickListener"
+            type="com.baha.common.dialog.listener.OnConfirmClickListener" />
+
+        <variable
+            name="onCancelClickListener"
+            type="com.baha.common.dialog.listener.OnCancelClickListener" />
+
+        <variable
+            name="onOkClickListener"
+            type="com.baha.common.dialog.listener.OnOkClickListener" />
+
+    </data>
+
+    <FrameLayout
+        android:id="@+id/dialog_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:background="@drawable/progress_waiting_dialog_bg"
+            android:visibility="@{dialogModel.progressStyle ? View.VISIBLE : View.GONE}">
+
+            <ProgressBar
+                android:id="@+id/pb_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_wait_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_inner_margin"
+                android:textColor="@color/theme_black"
+                android:textSize="@dimen/common_text_size"
+                android:maxLines="1"
+                android:text="@{dialogModel.progressText}" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialog_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{dialogModel.progressStyle ? View.GONE : View.VISIBLE}">
+
+            <RelativeLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_margin_top"
+                android:paddingLeft="@dimen/dialog_padding"
+                android:paddingRight="@dimen/dialog_padding"
+                android:gravity="center_vertical"
+                android:visibility="@{dialogModel.hasHeader ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textSize="@dimen/dialog_title_text_size"
+                    android:textColor="@color/common_text_title_color"
+                    android:layout_alignParentLeft="true"
+                    android:text="@{dialogModel.title}" />
+
+                <TextView
+                    android:id="@+id/subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/dialog_content_text_size"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/common_text_sub_title_color"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/title"
+                    android:text="@{dialogModel.subTitle}" />
+            </RelativeLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_margin_top"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dialog_padding"
+                    android:paddingRight="@dimen/dialog_padding"
+                    android:orientation="vertical" />
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/expand_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dialog_margin_top"
+                android:paddingLeft="@dimen/dialog_padding_left"
+                android:paddingRight="@dimen/dialog_padding_right"
+                android:orientation="vertical"
+                android:visibility="@{dialogModel.hasExpand ? View.VISIBLE : View.INVISIBLE}">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/footer"
+                android:layout_height="@dimen/dialog_button_height"
+                android:layout_width="match_parent"
+                android:gravity="right|center_vertical"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/dialog_inner_padding"
+                android:layout_marginBottom="@dimen/dialog_margin_bottom"
+                android:visibility="@{dialogModel.hasFooter ? View.VISIBLE : View.GONE}">
+
+                <TextView
+                    android:id="@+id/confirm"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/dialog_inner_padding"
+                    android:paddingRight="@dimen/dialog_inner_padding"
+                    android:background="@drawable/dialog_btn"
+                    android:textColor="@color/theme_red"
+                    android:textSize="@dimen/dialog_button_text_size"
+                    android:text="@{dialogModel.okText}"
+                    android:visibility="@{dialogModel.singleBtn ? View.VISIBLE : View.GONE}"
+                    android:onClick="@{onOkClickListener::onOkClicked}" />
+
+                <LinearLayout
+                    android:id="@+id/dialog_custom_style_double_btns"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="@{dialogModel.singleBtn ? View.GONE : View.VISIBLE}">
+
+                    <TextView
+                        android:id="@+id/cancel_btn"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dialog_inner_padding"
+                        android:paddingRight="@dimen/dialog_inner_padding"
+                        android:background="@drawable/dialog_btn"
+                        android:textSize="@dimen/dialog_button_text_size"
+                        android:textColor="@color/common_text_title_color"
+                        android:text="@{dialogModel.cancelText}"
+                        android:onClick="@{onCancelClickListener::onCancelClicked}" />
+
+                    <TextView
+                        android:id="@+id/confirm_btn"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dialog_inner_padding"
+                        android:paddingRight="@dimen/dialog_inner_padding"
+                        android:background="@drawable/dialog_btn"
+                        android:textSize="@dimen/dialog_button_text_size"
+                        android:textColor="@color/theme_red"
+                        android:text="@{dialogModel.confirmText}"
+                        android:onClick="@{onConfirmClickListener::onConfirmClicked}" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+</layout>

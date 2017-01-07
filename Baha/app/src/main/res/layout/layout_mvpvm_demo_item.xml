@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class="MvpVmDemoItemDataBinding">
+
+        <variable
+            name="demoItemModel"
+            type="com.baha.demo.viewmodel.MvpVmDemoModel" />
+
+        <variable
+            name="listener"
+            type="com.baha.common.listener.DataBindingRecyclerViewItemClickListener" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/common_padding"
+        android:onClick="@{(view)->listener.onItemClick(view, demoItemModel.info)}">
+
+        <TextView
+            android:id="@+id/self_introduction"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@color/theme_black"
+            android:text="@{demoItemModel.introduction}" />
+
+    </LinearLayout>
+</layout>

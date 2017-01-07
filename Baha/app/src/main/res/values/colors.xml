@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorActivated">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="theme_white">#ffffff</color>
+    <color name="theme_red">#e63528</color>
+    <color name="theme_black">#000000</color>
+
+    <!-- common -->
+    <color name="common_text_color">#404040</color>
+    <color name="common_text_title_color">#404040</color>
+    <color name="common_text_sub_title_color">#9a9a9a</color>
+    <color name="common_dialog_content_color">#555555</color>
+
+    <!--dialog-->
+    <color name="common_dialog_button_pressed">#f3f3f3</color>
+    <color name="common_dialog_button_normal">#ffffff</color>
+
+</resources>
