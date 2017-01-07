@@ -1,0 +1,19 @@
+ext {
+    supportLibraryVersion = '23.4.0'
+    retrofitVersion = '2.0.2'
+
+    dependencies = [
+            support_design       : "com.android.support:design:$supportLibraryVersion",
+            support_v4           : "com.android.support:support-v4:$supportLibraryVersion",
+            appCompat            : "com.android.support:appcompat-v7:$supportLibraryVersion",
+            recyclerView         : "com.android.support:recyclerview-v7:$supportLibraryVersion",
+            retrofit             : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitConverterGson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            retrofitAdapterRxJava: "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion",
+            Okhttp3              : 'com.squareup.okhttp3:logging-interceptor:3.1.2',
+            picasso              : 'com.squareup.picasso:picasso:2.5.2',
+            rxAndroid            : 'io.reactivex:rxandroid:1.2.0',
+            rxjava               : 'io.reactivex:rxjava:1.1.6',
+            okhttp               : 'com.squareup.okhttp:okhttp:2.7.0',
+    ]
+}
