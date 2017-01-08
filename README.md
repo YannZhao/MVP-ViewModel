@@ -7,4 +7,4 @@ View层主要包括Activity和Fragment，起事件处理分发的过度及dialog
 
 Presenter负责数据的获取，通过Wrapper进行数据渲染。
 
-后续会添加更多组件及Rxjava+Retrofit的网络处理框架。
+后续会添加更多组件及Rxjava+Retrofit的网络处理框架，才疏学浅，多指教。
