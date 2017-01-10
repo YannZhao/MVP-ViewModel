@@ -14,10 +14,6 @@ import com.baha.demo.contract.MvpVmDemoContract;
 import com.baha.demo.presenter.MvpVmDemoPresenter;
 import com.baha.demo.view.wrapper.MvpVmDemoViewWrapper;
 
-/**
- * Created by Yann on 07/01/2017.
- */
-
 public class MvpVmDemoActivity extends MvpVmActivity<MvpVmDemoPresenter, MvpVmDemoViewWrapper, MvpVmDemoDataBinding>
 		implements MvpVmDemoContract.View {
 
@@ -28,7 +24,7 @@ public class MvpVmDemoActivity extends MvpVmActivity<MvpVmDemoPresenter, MvpVmDe
 		if (viewWrapper != null) {
 			viewWrapper.setBinding(dataBinding);
 		}
-        presenter.fetchData();
+		presenter.fetchData();
 	}
 
 	@Override
@@ -55,4 +51,6 @@ public class MvpVmDemoActivity extends MvpVmActivity<MvpVmDemoPresenter, MvpVmDe
 					}
 				});
 	}
+
+
 }

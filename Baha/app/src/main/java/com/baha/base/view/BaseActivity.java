@@ -18,8 +18,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.baha.R;
+import com.baha.base.listener.ToolbarRightViewClickListener;
 import com.baha.base.viewmodel.ToolbarModel;
 import com.baha.databinding.BaseActivityDataBinding;
 import com.baha.rx.RxSchedulers;
@@ -51,6 +54,12 @@ public class BaseActivity<D extends ViewDataBinding> extends AppCompatActivity i
 				baseBinding.getToolbarModel().setShowTabLayout(false);
 			}
 			baseBinding.toolbarLayout.toolbar.setNavigationIcon(R.drawable.navi_bar_back_img_white);
+			baseBinding.toolbarLayout.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					finish();
+				}
+			});
 			baseBinding.toolbarLayout.toolbar.setTitleTextColor(Color.WHITE);
 			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			binding = DataBindingUtil.inflate(inflater, layoutResID, baseBinding.contentLayout, true);
@@ -58,13 +67,14 @@ public class BaseActivity<D extends ViewDataBinding> extends AppCompatActivity i
 			binding = DataBindingUtil.setContentView(this, layoutResID);
 		}
 		activity = this;
-		initToolBar(!isCenterTitle());
+		initToolBar();
 		setStatusBar();
 		return binding;
 	}
 
 	private void bindToolbar() {
 		ToolbarModel toolbarModel = new ToolbarModel();
+		toolbarModel.setShowLeftTitle(!isCenterTitle());
 		baseBinding.setToolbarModel(toolbarModel);
 	}
 
@@ -72,20 +82,30 @@ public class BaseActivity<D extends ViewDataBinding> extends AppCompatActivity i
 		StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark), 0);
 	}
 
-	public Toolbar initToolBar(boolean leftTitleEnabled) {
+	public Toolbar initToolBar() {
 		if (!hasToolBar()) {
 			return null;
 		}
 		setSupportActionBar(baseBinding.toolbarLayout.toolbar);
 		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null) {
-			actionBar.setDisplayHomeAsUpEnabled(leftTitleEnabled);
-			actionBar.setDisplayShowTitleEnabled(leftTitleEnabled);
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setDisplayShowTitleEnabled(false);
 		}
-		if (!leftTitleEnabled) {
-			setTitle(getTitle() != null ? getTitle().toString() : null);
-		}
+		setTitle(getTitle() != null ? getTitle().toString() : null);
 		return baseBinding.toolbarLayout.toolbar;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			try {
+				super.onBackPressed();
+				return true;
+			} catch (Throwable t) {
+			}
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -128,8 +148,8 @@ public class BaseActivity<D extends ViewDataBinding> extends AppCompatActivity i
 
 	@Override
 	public void setTitle(String title) {
-		if (hasToolBar() && isCenterTitle()) {
-			baseBinding.toolbarLayout.tvCenterTitle.setText(title);
+		if (hasToolBar()) {
+			baseBinding.getToolbarModel().setTitle(title);
 		} else {
 			super.setTitle(title);
 		}
@@ -138,6 +158,42 @@ public class BaseActivity<D extends ViewDataBinding> extends AppCompatActivity i
 	@Override
 	public void setTitle(int titleId) {
 		setTitle(getString(titleId));
+	}
+
+	public void setRightText(String text, ToolbarRightViewClickListener listener) {
+		if (hasToolBar()) {
+			baseBinding.toolbarLayout.setToolbarRightViewClickListener(listener);
+			baseBinding.getToolbarModel().setRightTextVisible(true);
+			baseBinding.getToolbarModel().setRightText(text);
+		}
+	}
+
+	public void setRightText(int text, ToolbarRightViewClickListener listener) {
+		if (hasToolBar()) {
+			baseBinding.toolbarLayout.setToolbarRightViewClickListener(listener);
+			baseBinding.getToolbarModel().setRightTextVisible(true);
+			baseBinding.getToolbarModel().setRightText(getString(text));
+		}
+	}
+
+	public void setRightDrawable(int drawableId, ToolbarRightViewClickListener listener) {
+		if (hasToolBar()) {
+			baseBinding.toolbarLayout.setToolbarRightViewClickListener(listener);
+			baseBinding.getToolbarModel().setRightTextVisible(true);
+			baseBinding.toolbarLayout.tvRight.setBackgroundResource(drawableId);
+		}
+	}
+
+	public void setRightTextColor(int colorResId) {
+		if (hasToolBar()) {
+			baseBinding.toolbarLayout.tvRight.setTextColor(ContextCompat.getColor(this, colorResId));
+		}
+	}
+
+	public void setRightTextEnable(boolean enable) {
+		if (hasToolBar()) {
+			baseBinding.toolbarLayout.tvRight.setEnabled(enable);
+		}
 	}
 
 	@Override
