@@ -278,6 +278,11 @@ public class BaseActivity<D extends ViewDataBinding> extends AppCompatActivity i
 	}
 
 	@Override
+	public BaseActivityDataBinding getBaseDataBinding() {
+		return baseBinding;
+	}
+
+	@Override
 	public Context getContext() {
 		return this;
 	}

@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import com.baha.databinding.BaseActivityDataBinding;
+
 /**
  * Created by Yann on 07/01/2017.
  */
@@ -41,6 +43,8 @@ public interface BaseView {
 	public Context getContext();
 
 	public Activity getActivity();
+
+	public BaseActivityDataBinding getBaseDataBinding();
 
 	public boolean isDestroyed();
 
