@@ -20,7 +20,7 @@ import com.baha.utils.BahaUtil;
  * Created by Yann on 07/01/2017.
  */
 
-public class BaseFragment<D extends ViewDataBinding> extends Fragment implements BaseView {
+public abstract class BaseFragment<D extends ViewDataBinding> extends Fragment implements BaseView {
 
 	public BaseActivity activity;
 	private boolean isDestroyed = false;

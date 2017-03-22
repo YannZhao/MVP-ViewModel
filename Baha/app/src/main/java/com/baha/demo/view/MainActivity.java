@@ -9,6 +9,7 @@ import com.baha.base.view.BaseActivity;
 import com.baha.common.dialog.CustomDialog;
 import com.baha.common.dialog.listener.OnCancelClickListener;
 import com.baha.common.dialog.listener.OnConfirmClickListener;
+import com.baha.utils.NotificationUtil;
 
 public class MainActivity extends BaseActivity {
 
@@ -37,5 +38,9 @@ public class MainActivity extends BaseActivity {
 
 	public void goMvpVmDemo(View view) {
 		startActivity(new Intent(this, MvpVmDemoActivity.class));
+	}
+
+	public void senNotification(View view) {
+		NotificationUtil.senNotification(view.getContext());
 	}
 }
